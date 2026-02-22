@@ -488,7 +488,7 @@ def build_mem_image(t: Tree, inp: Input) -> list[int]:
     """
     Build a flat memory image of the problem.
     """
-    header = 7
+    header = 8
     extra_room = len(t.values) + len(inp.indices) * 2 + VLEN * 2 + 32
     mem = [0] * (
         header + len(t.values) + len(inp.indices) + len(inp.values) + extra_room
@@ -509,7 +509,7 @@ def build_mem_image(t: Tree, inp: Input) -> list[int]:
 
     mem[header:inp_indices_p] = t.values
     mem[inp_indices_p:inp_values_p] = inp.indices
-    mem[inp_values_p:] = inp.values
+    mem[inp_values_p:extra_room] = inp.values
     return mem
 
 
